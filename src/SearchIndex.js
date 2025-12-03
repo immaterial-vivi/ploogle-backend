@@ -247,26 +247,26 @@ class SearchInstance {
         const subQueries = parseQuery(query);
 
 
-        if (params.matchAll) {
-            const matchAllPattern = new RegExp(`${query}`, 'g')
-            results = results.filter((hit, index) => {
-                //if (index > 20) return false
-                const tm = hit.title.match(matchAllPattern)
-                const ctm = hit.chapter_title.match(matchAllPattern)
-                const cnm = hit.chapter_notes.match(matchAllPattern)
-                const cm = hit.author.match(matchAllPattern)
-                const ctxtm = hit.chapter_text.match(matchAllPattern)
+        // if (params.matchAll) {
+        //     const matchAllPattern = new RegExp(`${query}`, 'g')
+        //     results = results.filter((hit, index) => {
+        //         //if (index > 20) return false
+        //         const tm = hit.title.match(matchAllPattern)
+        //         const ctm = hit.chapter_title.match(matchAllPattern)
+        //         const cnm = hit.chapter_notes.match(matchAllPattern)
+        //         const cm = hit.author.match(matchAllPattern)
+        //         const ctxtm = hit.chapter_text.match(matchAllPattern)
 
-                if (hit.title.match(matchAllPattern)) return true
-                if (hit.chapter_title.match(matchAllPattern)) return true
-                if (hit.chapter_notes.match(matchAllPattern)) return true
-                if (hit.author.match(matchAllPattern)) return true
-                if (hit.chapter_text.match(matchAllPattern)) return true
+        //         if (hit.title.match(matchAllPattern)) return true
+        //         if (hit.chapter_title.match(matchAllPattern)) return true
+        //         if (hit.chapter_notes.match(matchAllPattern)) return true
+        //         if (hit.author.match(matchAllPattern)) return true
+        //         if (hit.chapter_text.match(matchAllPattern)) return true
 
-                return false
+        //         return false
 
-            })
-        }
+        //     })
+        // }
 
 
         results.forEach((res) => {
