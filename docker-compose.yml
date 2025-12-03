@@ -1,0 +1,42 @@
+
+networks:
+  traefik_default:
+    external: true
+    name: traefik_default
+
+services:
+  app:
+    container_name: app
+    image: app
+    restart:  always 
+    build: 
+      context: .
+      dockerfile: DOCKERFILE
+      target: base
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - PLOOGLE_API_KEY=${PLOOGLE_API_KEY}
+      - PLOOGLE_API_MODE=1
+      - PLOOGLE_DOCKER=1
+      - PLOOGLE_CRAWLER_MODE=1
+      - NODE_OPTIONS="--max-old-space-size=8192" 
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+
+
+      - "traefik.http.middlewares.http-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.http-redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.ploogle-http.entrypoints=web"
+      - "traefik.http.routers.ploogle-http.rule=Host(`ploogle.mode13h.de`)"
+      - "traefik.http.routers.ploogle-http.middlewares=http-redirect"
+      - "traefik.http.routers.ploogle-https.entrypoints=websecure"
+      - "traefik.http.routers.ploogle-https.rule=Host(`ploogle.mode13h.de`)"
+      - "traefik.http.services.ploogle-https.loadbalancer.server.port=${PORT}"
+      - "traefik.http.routers.ploogle-https.tls=true"
+      - "traefik.http.routers.ploogle-https.tls.certresolver=production"
+    volumes:
+        - /opt/books:/app/books
+        - /opt/index:/app/index

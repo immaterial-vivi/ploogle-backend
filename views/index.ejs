@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ploogle Search</title>
+    <link rel="stylesheet" type="text/css" href="/static/reset.css" /> 
+    <link rel="stylesheet" type="text/css" href="/static/stlyes.css" /> 
+
+</head>
+
+<style>
+    .hero-flort {
+        max-width: 300px;
+        max-height: 300px;
+        margin: auto;
+    }
+
+    .landing {
+        min-height: 100vh;
+        display: grid;
+        grid-column: 1;
+        
+        align-items: center;
+        justify-content: center;
+    }
+
+    .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    }
+
+</style>
+
+<body class="landing">
+    <div class="landing-container">
+    <h1 class="hero-h1 biiig">Ploogle</h1>
+    <img class="hero-flort" srcset="/static/img/flort/flort-400w.webp 400w, /static/img/flort/flort-600w.webp 600w, /static/img/flort/flort-800w.webp 800w, /static/img/flort/flort-1000w.webp 1000w, /static/img/flort/flort-1200w.webp 1200w, /static/img/flort/flort-1600w.webp 1600w, /static/img/flort/flort-2000w.webp 2000w"
+        sizes="(max-width: 400px) 400px, (max-width: 600px) 600px, (max-width: 800px) 800px, (max-width: 1000px) 1000px, (max-width: 1200px) 1200px, (max-width: 1600px) 1600px, (min-width: 1601px) 2000px"
+        src="/static/img/flort/flort.png" alt="flort" width="3840" height="3840" />
+    <form>
+        <div class="search-form">
+        <label class="sr-only" for="q">Search:</label>
+
+        <input type="text" id="query" name="q" required />
+
+        </div>
+        
+        <div class="hero-search">
+        <button id="submit" type="submit">
+        Search Plampts!!
+        </button>
+
+        </div>
+
+    </form>
+    </div>
+
+
+    
+    <div class="footer"> made by <a href="https://archiveofourown.org/users/immaterial_vivi">immaterial vivi</a> | <a href="https://www.tumblr.com/new/ask/immaterial-vivi">send me hatemail</a></div>
+</body>
+
+</html>

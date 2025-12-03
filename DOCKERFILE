@@ -1,0 +1,18 @@
+FROM alpine AS base 
+
+# install node, python, pipx
+RUN apk add --no-cache nodejs npm python3 pipx
+
+# install fanficfare
+RUN pipx install fanficfare
+RUN pipx inject fanficfare pillow
+
+# install dependencies
+WORKDIR /app
+COPY package.json package-lock.json ./ 
+RUN npm install
+
+COPY . . 
+
+CMD ["node", "src/index.js"]
+

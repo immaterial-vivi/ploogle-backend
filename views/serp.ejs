@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ploogle Search results</title>
+  <link rel="stylesheet" type="text/css" href="/static/reset.css" />
+  <link rel="stylesheet" type="text/css" href="/static/stlyes.css" />
+
+</head>
+
+
+<style>
+  :root {
+    background: #000;
+    color: white;
+
+    & a {
+      color: lightgreen;
+    }
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    max-width: 654px;
+    margin: auto;
+  }
+
+  .result {
+    display: flex;
+    padding: 4px 8px;
+    margin: 16px 0px;
+    flex-direction: column;
+    background: #000;
+
+    & h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .chapterSummary {
+    white-space: pre-line;
+    margin: -0.85rem 0 0 0;
+  }
+
+
+  .sr-only {
+    display: none;
+  }
+
+  .container {
+    max-width: 1100px;
+  }
+
+  .logo {
+    margin: 12px auto;
+
+    & a {
+      text-decoration: none;
+    }
+  }
+
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    padding-bottom: 16px;
+  }
+
+  .header {
+    border-bottom: 1px darkgreen solid;
+
+  }
+
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & form {
+      background: #000;
+      border: 1px lightgray solid;
+      border-radius: 32px;
+      padding: 4px 16px;
+      color: white;
+
+      & input {
+        background: #000;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    .results {
+      margin-top: 3rem;
+    }
+
+    .logo {
+      margin: 0px;
+      padding-right: 16px;
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 8px 0px;
+      padding-bottom: 0px;
+
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: minmax(0px, 200px) 654px 1fr;
+      background: #111;
+      padding: 16px 32px;
+
+      & form {
+        color: white;
+
+        & input {
+          background: #000;
+          color: white;
+          cursor: pointer;
+          border: 1px lightgray solid;
+          border-radius: 32px;
+          padding: 4px 16px;
+
+        }
+      }
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+
+  }
+</style>
+
+<body>
+  <div class="header">
+    <div></div>
+    <div class="header-container">
+      <a href="/"></a>
+      <h1 class="logo hero-h1">Ploogle</h1></a>
+
+      <form>
+        <label class="sr-only" for="q">Search:</label>
+        <% if (locals?.query) { %>
+          <input type="text" id="query" name="q" required value="<%= query %>" />
+          <% } else { %>
+            <input type="text" id="query" name="q" required />
+            <% } %>
+              <input id="submit" type="submit" value="🔍">
+      </form>
+    </div>
+  </div>
+  <div class="container">
+    <div class="results">
+      <% results.forEach(function(result) { %>
+        <div class="result">
+          <h2><a href="<%= result.url %>#:~:text=<%= result.queryTerms[0] %>">
+              <% if (result.title==result.chapter_title) { %>
+                <%= result.title %>
+                  <% } else { %>
+                    <%= result.title %>, <%= result.chapter_title %>
+                        <% } %>
+            </a></h2>
+          <div><i>by</i><span class="author"><a href="https://archiveofourown.org/users/<%= result.author %>">
+                <%= result.author %>
+              </a>
+            </span></div>
+          <div class="chapterSummary">
+            <%= result.chapter_notes %>
+          </div>
+          <div style="font-size: 0.85rem; color: lightgray;">link: <span class="plainUrl">
+              <%= result.url %>
+            </span></div>
+        </div>
+        <% }); %>
+        <div>
+          <ol style="display: flex; flex-direction: row; list-style-type: none;">
+            <% for(
+              var i=Math.max(1, info.page.page-5);
+              i <= Math.min(Math.max(1, info.page.page-5)+9, info.page.pages);
+              i++
+              ) { %>
+              <li style="padding: 4px;">
+
+              <% if(i == info.page.page){ %>
+                <%= i %>
+              <% } else{ %>  
+                <a href="/?q=<%= info.query %>&p=<%= i %>"><%= i %> </a>
+              <% } %>
+
+              </li>
+              <% } %>
+          </ol>
+        </div>
+          <div class="footer" style="margin-top: 4rem;">
+            rendered in <%= queryTime %> ms | made by <a
+                href="https://archiveofourown.org/users/immaterial_vivi">immaterial vivi</a> | <a
+                href="https://www.tumblr.com/new/ask/immaterial-vivi">send me hatemail</a></div>
+
+    </div>
+
+  </div>
+
+  <% if(renderDebug){ %>
+    <ul>
+      <% results.forEach(function(result) { %>
+        <li>
+          <pre>
+                    <%= JSON.stringify(result, null, 2) %>\
+                </pre>
+        </li>
+        <% }); %>
+    </ul>
+    <% } %>
+
+
+
+
+
+</body>
+
+</html>

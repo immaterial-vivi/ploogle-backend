@@ -1,0 +1,10 @@
+/.vscode
+/node_modules
+.vercel
+.env
+/test/books/**.epub
+/books
+searchindex.json
+urls.json
+blacklist.json
+

@@ -1,0 +1,18 @@
+services:
+  app:
+    container_name: app
+    image: app
+    restart:  always 
+    build: 
+      context: .
+      dockerfile: DOCKERFILE
+      target: base
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - PLOOGLE_API_KEY=${PLOOGLE_API_KEY}
+      - PLOOGLE_API_MODE=1
+      - PLOOGLE_DOCKER=1
+      - NODE_OPTIONS="--max-old-space-size=8192" 
+    volumes:
+        - ./books:/app/books
